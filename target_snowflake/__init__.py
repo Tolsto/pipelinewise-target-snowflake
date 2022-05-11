@@ -342,7 +342,7 @@ def persist_lines(config, lines, table_cache=None, file_format_type: FileFormatT
     emit_state(copy.deepcopy(flushed_state))
 
 def merge_records(existing: dict, update: dict):
-    return existing | update
+    return {**existing, **update}
 
 # pylint: disable=too-many-arguments
 def flush_streams(
