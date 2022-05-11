@@ -1380,8 +1380,8 @@ class TestIntegration(unittest.TestCase):
         tap_lines_initial = test_utils.get_test_tap_lines('messages-pg-logical-streams.json')
         self.persist_lines_with_cache(tap_lines_initial)
 
-        subject = self.snowflake.query(f'SELECT cid, cvarchar, cvarchar2 FROM'
-                                       f' {self.config["default_target_schema"]}.logical1_table1 WHERE cid = \'2\';')
+        subject = self.snowflake.query(f'SELECT cid, cjson, cjsonb FROM'
+                                       f' {self.config["default_target_schema"]}.logical1_edgydata WHERE cid = \'17\';')
 
         for _column, value in subject[0].items():
             self.assertIsNotNone(value)
@@ -1389,8 +1389,8 @@ class TestIntegration(unittest.TestCase):
         tap_lines_update = test_utils.get_test_tap_lines('messages-pg-logical-streams-update.json')
         self.persist_lines_with_cache(tap_lines_update)
 
-        subject = self.snowflake.query(f'SELECT cid, cvarchar, cvarchar2, _sdc_deleted_at FROM'
-                                       f' {self.config["default_target_schema"]}.logical1_table1 WHERE cid = \'2\';')
+        subject = self.snowflake.query(f'SELECT cid, cjsonb, cjson, _sdc_deleted_at FROM'
+                                       f' {self.config["default_target_schema"]}.logical1_edgydata WHERE cid = \'17\';')
 
         for _column, value in subject[0].items():
             self.assertIsNotNone(value)
